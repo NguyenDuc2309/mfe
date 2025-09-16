@@ -1,14 +1,22 @@
-import React from "react";
-import RemoteBoundary from "../components/RemoteBoundary";
-
-const ProductApp = React.lazy(() => import("product/App"));
+import React, { useEffect, useRef } from 'react'
+import { mount } from 'product/mount' 
 
 export default function ProductRemote() {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    let cleanup
+    if (ref.current) {
+      cleanup = mount(ref.current)
+    }
+    return () => {
+      if (cleanup) cleanup()
+    }
+  }, [])
+
   return (
-    <RemoteBoundary>
-      <React.Suspense fallback={<div>Loading Product...</div>}>
-        <ProductApp />
-      </React.Suspense>
-    </RemoteBoundary>
-  );
+    <div>
+      <div ref={ref}></div>
+    </div>
+  )
 }
