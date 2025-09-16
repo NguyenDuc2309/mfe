@@ -15,6 +15,7 @@ export const router = createBrowserRouter([
       { path: "/products/*", Component: Product, errorElement: NotFound },
       { path: "/orders/*", Component: Order, errorElement: NotFound },
       { path: "/users/*", Component: User, errorElement: NotFound },
+      { path: "/404", Component: NotFound },
       { path: "*", Component: NotFound }
     ],
   },

@@ -1,14 +1,26 @@
-import React from "react";
-import RemoteBoundary from "../components/RemoteBoundary";
-
-const OrderApp = React.lazy(() => import("order/App"));
+import React, { useEffect, useRef } from 'react'
+import { mount } from 'order/mount' 
 
 export default function OrderRemote() {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    let cleanup
+    if (ref.current) {
+      mount(ref.current).then((cleanupFn) => {
+        cleanup = cleanupFn
+      }).catch(error => {
+        console.error('Failed to mount order app:', error)
+      })
+    }
+    return () => {
+      if (cleanup) cleanup()
+    }
+  }, [])
+
   return (
-    <RemoteBoundary>
-      <React.Suspense fallback={<div>Loading Order...</div>}>
-        <OrderApp />
-      </React.Suspense>
-    </RemoteBoundary>
-  );
+    <div>
+      <div ref={ref}></div>
+    </div>
+  )
 }
