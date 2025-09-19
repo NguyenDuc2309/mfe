@@ -9,8 +9,8 @@ export default function OrderRemote() {
     if (ref.current) {
       mount(ref.current).then((cleanupFn) => {
         cleanup = cleanupFn
-      }).catch(error => {
-        console.error('Failed to mount order app:', error)
+      }).catch(err => {
+        console.error('❌ Failed to mount remote app:', err)
       })
     }
     return () => {

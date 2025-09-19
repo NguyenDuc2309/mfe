@@ -5,21 +5,19 @@ import { appConfig } from './app/app.config';
 import { App } from './app/app';
 
 const TAG_NAME = 'mfe-order-app';
-let defined = false;
 
 async function ensureDefined() {
-  if (!defined) {
+  if (!customElements.get(TAG_NAME)) {
     const app = await createApplication(appConfig);
     const element = createCustomElement(App, { injector: app.injector });
     customElements.define(TAG_NAME, element);
-    defined = true;
   }
 }
 
 export async function mount(el: HTMLElement) {
   await ensureDefined();
 
-  // cleanup nếu có sẵn instance cũ trong container
+  // cleanup instance cũ nếu có
   const existing = el.querySelector(TAG_NAME);
   if (existing) el.removeChild(existing);
 
