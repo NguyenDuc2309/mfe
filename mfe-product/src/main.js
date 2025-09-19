@@ -1,6 +1,7 @@
-import { defineCustomElement } from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
+import './index.css'
 
-// Biến Vue App thành Web Component
-const ProductElement = defineCustomElement(App)
-customElements.define('product-app', ProductElement)
+// Mount trực tiếp cho standalone app
+const app = createApp(App)
+app.mount('#app')

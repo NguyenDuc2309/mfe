@@ -1,5 +1,4 @@
 <script setup>
-import './index.css'
 import { ref } from 'vue'
 
 const products = ref([
